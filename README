@@ -1,0 +1,10 @@
+
+1. modify config.py
+2. run prepare_data.py
+3. run main_dnn.py
+4. run recognize.py
+
+-------------------------
+
+(test198.py, test198_rec.py is the global mean version)
+(test197.py, test197_rec.py is the adaptive weights version)
