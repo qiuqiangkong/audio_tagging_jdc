@@ -21,16 +21,24 @@ def calculate_dev_bob_eer():
     
     for fold in xrange( cfg.n_folds ):
         preds_fd = cfg.scrap_fd + '/Results_dev/bob_eer/fold' + str(fold)
-        dump_path = cfg.scrap_fd + '/Results_dev/bob_eer/eer_fold' + str(fold) + '.p'
-        pp_dev_data.calculate_dev_eer( n_epochs, preds_fd, dump_path, fold )
+        if not os.path.exists( preds_fd ):
+            print fold, 'fold does not exist!'
+        else:
+            dump_path = cfg.scrap_fd + '/Results_dev/bob_eer/eer_fold' + str(fold) + '.p'
+            pp_dev_data.calculate_dev_eer( n_epochs, preds_fd, dump_path, fold )
+            print fold, 'fold finished. You can pickle.load to view result.'
         
 def calculate_dev_jdc_eer():
     n_epochs = 10    
     
     for fold in xrange( cfg.n_folds ):
         preds_fd = cfg.scrap_fd + '/Results_dev/jdc_eer/fold' + str(fold)
-        dump_path = cfg.scrap_fd + '/Results_dev/jdc_eer/eer_fold' + str(fold) + '.p'
-        pp_dev_data.calculate_dev_eer( n_epochs, preds_fd, dump_path, fold )
+        if not os.path.exists( preds_fd ):
+            print fold, 'fold does not exist!'
+        else:
+            dump_path = cfg.scrap_fd + '/Results_dev/jdc_eer/eer_fold' + str(fold) + '.p'
+            pp_dev_data.calculate_dev_eer( n_epochs, preds_fd, dump_path, fold )
+            print fold, 'fold finished. You can pickle.load to view result.'
         
 def calculate_eva_bob_eer():
     n_epochs = 10    
@@ -48,7 +56,7 @@ def calculate_eva_jdc_eer():
     
     
 ### main (run either of below)
-#calculate_dev_bob_eer()
+calculate_dev_bob_eer()
 #calculate_dev_jdc_eer()
-calculate_eva_bob_eer()
-#calculate_eva_jdc_eer
+#calculate_eva_bob_eer()
+#calculate_eva_jdc_eer()

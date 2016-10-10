@@ -1,4 +1,24 @@
-joint detection-classification model
+Joint Detection-Classification Model
+This is the code for "A Joint Detection-Classification Model for Audio Tagging of Weakly Labelled Data"
+02/10/2016
+=====================================
 
-run prepare_data.py
-run main_bob_dev.py
+pre-requisite python package:
+* librosa	(feature extraction)
+* hat		(deep learning toolbox)
+
+Usage:
+* modify config.py, config your own paths
+
+Development
+* run prepare_dev_data.py
+* run main_dev_bob.py (or main_dev_jdc.py), (you need to select the fold between 0 - 4)
+* run calculate_results.py (You need to select one to run in line 59 - 62)
+
+Evaluation
+* run prepare_eva_data.py
+* run main_eva_bob.py (or main_eva_jdc.py)
+* run calculate_results.py (You need to select one to run in line 59 - 62)
+
+Plot
+* run plot_results.py (must run after running all folds for main_dev_bob.py, main_dev_jdc.py and main_eva_bob.py, main_eva_jdc.py)

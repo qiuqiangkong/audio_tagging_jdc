@@ -2,11 +2,9 @@
 SUMMARY:  the bag of blocks (BOB) model on development set using cross validation
 AUTHOR:   Qiuqiang Kong
 Created:  2016.09.12
-Modified: -
+Modified: 2016.10.09 Update
 --------------------------------------
 '''
-import sys
-sys.path.append('/user/HS229/qk00006/my_code2015.5-/python/Hat')
 import pickle
 import numpy as np
 np.random.seed(1515)
@@ -30,7 +28,7 @@ agg_num = 11        # concatenate frames
 hop = 1            # step_len
 act = 'relu'
 n_hid = 500
-fold = 1
+fold = 0
 n_out = len( cfg.labels )
 
 
@@ -43,9 +41,9 @@ def create_folders():
 
 
 # the BOB model loss function
-def loss_func( out_nodes, any_nodes, gt_nodes ):
-    a8_node = out_nodes[0]      # shape: (n_songs, n_chunk, n_out)
-    gt_node = gt_nodes[0]       # shape: (n_songs, n_out)
+def loss_func( md ):
+    a8_node = md.out_nodes_[0]      # shape: (n_songs, n_chunk, n_out)
+    gt_node = md.gt_nodes_[0]       # shape: (n_songs, n_out)
     
     (n_songs, n_chunk, n_out) = a8_node.shape
     a8_node_2d = a8_node.reshape( (n_songs*n_chunk, n_out) )
@@ -67,17 +65,17 @@ def train():
     print va_X.shape, va_y.shape
     
     # model
-    in0 = InputLayer( (n_chunks, agg_num, n_in), name='in0' )   # shape: (n_songs, n_chunk, agg_num, n_in)
-    a1 = Flatten( 3, name='a1' )( in0 )                 # shape: (n_songs, n_chunk, agg_num*n_in)
-    a2 = Dense( n_hid, act='relu' )( a1 )               # shape: (n_songs, n_chunk, n_hid)
-    a3 = Dropout( 0.2 )( a2 )
-    a4 = Dense( n_hid, act='relu' )( a3 )
-    a5 = Dropout( 0.2 )( a4 )
-    a6 = Dense( n_hid, act='relu' )( a5 )
-    a7 = Dropout( 0.2 )( a6 )
-    a8 = Dense( n_out, act='sigmoid', b_init=-1, name='a8' )( a7 ) # shape: (n_songs, n_chunk, n_out)
+    lay_in0 = InputLayer( (n_chunks, agg_num, n_in), name='in0' )   # shape: (n_songs, n_chunk, agg_num, n_in)
+    lay_a1 = Flatten( 3, name='a1' )( lay_in0 )                 # shape: (n_songs, n_chunk, agg_num*n_in)
+    lay_a2 = Dense( n_hid, act='relu' )( lay_a1 )               # shape: (n_songs, n_chunk, n_hid)
+    lay_a3 = Dropout( 0.2 )( lay_a2 )
+    lay_a4 = Dense( n_hid, act='relu' )( lay_a3 )
+    lay_a5 = Dropout( 0.2 )( lay_a4 )
+    lay_a6 = Dense( n_hid, act='relu' )( lay_a5 )
+    lay_a7 = Dropout( 0.2 )( lay_a6 )
+    lay_a8 = Dense( n_out, act='sigmoid', b_init=-1, name='a8' )( lay_a7 ) # shape: (n_songs, n_chunk, n_out)
     
-    md = Model( in_layers=[in0], out_layers=[a8], any_layers=[] )
+    md = Model( in_layers=[lay_in0], out_layers=[lay_a8], any_layers=[] )
     md.summary()
     
     

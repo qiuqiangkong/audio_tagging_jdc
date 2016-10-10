@@ -1,6 +1,7 @@
 '''
 SUMMARY:  callback function to write out scores every epoch
-          This file is modified from hat.callbacks
+          This file is inherited from hat package's callback
+          (callback is used to do something after 1 or several training epoch)
 AUTHOR:   Qiuqiang Kong
 Created:  2016.09.12
 Modified: -

@@ -224,7 +224,6 @@ def calculate_dev_eer( n_epochs, preds_fd, dump_path, fold ):
 
     mean_eer_list = []
     for epoch in xrange( n_epochs ):
-        print epoch,
         pred_path = preds_fd + '/' + str(epoch) + 'epoch.txt'
         
         # get ground truth dict

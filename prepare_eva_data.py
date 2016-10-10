@@ -5,8 +5,6 @@ Created:  2016.06.28
 Modified: -
 --------------------------------------
 '''
-import sys
-sys.path.append('/homes/qkong/my_code2015.5-/python/hat')
 import numpy as np
 import csv
 import cPickle
