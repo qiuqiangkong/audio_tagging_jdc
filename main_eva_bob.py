@@ -67,6 +67,7 @@ def train():
     lay_a8 = Dense( n_out, act='sigmoid', b_init=-1, name='a8' )( lay_a7 ) # shape: (n_songs, n_chunk, n_out)
     
     md = Model( in_layers=[lay_in0], out_layers=[lay_a8], any_layers=[] )
+    md.compile()
     md.summary()
     
     # callback, write out dection scores to .txt each epoch

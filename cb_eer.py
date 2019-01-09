@@ -27,7 +27,7 @@ class PrintScoresBagOfBlocks( Callback ):
     def compile( self, md ):
         self._md_ = md
         input_nodes = md.in_nodes_
-        self._f_pred = K.function_no_given( input_nodes, md.tr_phase_node_, md.out_nodes_ )
+        self._f_pred = K.function_no_given( input_nodes + [md.tr_phase_node_], md.out_nodes_ )
         
     def call( self ):
         y = self._f_pred( self._te_x_, 0. )     # recognize phase
@@ -57,7 +57,7 @@ class PrintScoresDetectionClassification( Callback ):
         
     def compile( self, md ):
         input_nodes = md.in_nodes_
-        self._f_pred = K.function_no_given( input_nodes, md.tr_phase_node_, md.out_nodes_ )
+        self._f_pred = K.function_no_given( input_nodes + [md.tr_phase_node_], md.out_nodes_ )
         self._md_ = md
         
     def call( self ):

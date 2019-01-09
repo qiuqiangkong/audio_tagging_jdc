@@ -8,6 +8,8 @@ Modified: 2016.10.09 Update
 import pickle
 import numpy as np
 np.random.seed(1515)
+import sys
+sys.path.append('/user/HS229/qk00006/my_code2015.5-/python/Hat')
 from sklearn import preprocessing
 from hat.models import Sequential, Model
 from hat.layers.core import InputLayer, Flatten, Dense, Dropout
@@ -76,6 +78,7 @@ def train():
     lay_a8 = Dense( n_out, act='sigmoid', b_init=-1, name='a8' )( lay_a7 ) # shape: (n_songs, n_chunk, n_out)
     
     md = Model( in_layers=[lay_in0], out_layers=[lay_a8], any_layers=[] )
+    md.compile()
     md.summary()
     
     
